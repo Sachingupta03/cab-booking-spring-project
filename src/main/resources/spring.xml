@@ -1,0 +1,66 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Database Configuration -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/cab_booking_db"/>
+        <property name="username" value="root"/>
+        <property name="password" value="Sachin@10"/>
+    </bean>
+
+    <!-- USER Beans -->
+    <bean id="userRepository" class="com.sachin.cab.booking.repository.impl.UserRepositoryImpl">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <bean id="userService" class="com.sachin.cab.booking.service.impl.UserServiceImpl">
+        <constructor-arg ref="userRepository"/>
+    </bean>
+
+    <bean id="userController" class="com.sachin.cab.booking.controller.UserController">
+        <constructor-arg ref="userService"/>
+    </bean>
+
+    <!-- DRIVER Beans -->
+    <bean id="driverRepository" class="com.sachin.cab.booking.repository.impl.DriverRepositoryImpl">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <bean id="driverService" class="com.sachin.cab.booking.service.impl.DriverServiceImpl">
+        <constructor-arg ref="driverRepository"/>
+    </bean>
+
+    <bean id="driverController" class="com.sachin.cab.booking.controller.DriverController">
+        <constructor-arg ref="driverService"/>
+    </bean>
+
+    <!-- RIDE Beans -->
+    <bean id="rideRepository" class="com.sachin.cab.booking.repository.impl.RideRepositoryImpl">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <bean id="rideService" class="com.sachin.cab.booking.service.impl.RideServiceImpl">
+        <constructor-arg ref="rideRepository"/>
+    </bean>
+
+    <bean id="rideController" class="com.sachin.cab.booking.controller.RideController">
+        <constructor-arg ref="rideService"/>
+    </bean>
+
+    <!-- PAYMENT Beans -->
+    <bean id="paymentRepository" class="com.sachin.cab.booking.repository.impl.PaymentRepositoryImpl">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <bean id="paymentService" class="com.sachin.cab.booking.service.impl.PaymentServiceImpl">
+        <constructor-arg ref="paymentRepository"/>
+    </bean>
+
+    <bean id="paymentController" class="com.sachin.cab.booking.controller.PaymentController">
+        <constructor-arg ref="paymentService"/>
+    </bean>
+
+</beans>
